@@ -32,6 +32,9 @@ namespace MyItemShop.Models
 
    
         public int userType { get; set; }
+        
+        [Column(TypeName = "varchar(max)")]
+        public string Cart { get; set; }
 
 
     }
