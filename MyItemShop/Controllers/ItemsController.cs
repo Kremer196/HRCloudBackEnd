@@ -22,36 +22,55 @@ namespace MyItemShop.Controllers
 
         // GET: api/Items
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Item>>> GetItems()
+        public async Task<ActionResult<IEnumerable<ItemDTO>>> GetItems()
         {
-            return await _context.Items.ToListAsync();
+
+            List<Item> list =  await _context.Items.ToListAsync();
+
+            List<ItemDTO> returnList = new List<ItemDTO>();
+
+            foreach(var item in list)
+            {
+                returnList.Add(new ItemDTO(item.ItemID, item.ItemName, item.CategoryID, item.ItemPrice, item.ItemImageURL));
+            }
+
+            return returnList;
         }
 
         // GET: api/Items/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Item>> GetItem(int id)
+        public async Task<ActionResult<ItemDTO>> GetItem(int id)
         {
             var item = await _context.Items.FindAsync(id);
+           
+
+            
+            
 
             if (item == null)
             {
                 return NotFound();
+            } else
+            {
+                ItemDTO itemDTO = new ItemDTO(item.ItemID, item.ItemName, item.CategoryID,  item.ItemPrice, item.ItemImageURL);
+                return itemDTO;
             }
 
-            return item;
+
+           
         }
 
         // PUT: api/Items/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItem(int id, Item item)
+        public async Task<IActionResult> PutItem(int id, ItemDTO itemDTO)
         {
-            if (id != item.ItemID)
+            if (id != itemDTO.ItemID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(item).State = EntityState.Modified;
+            _context.Entry(itemDTO).State = EntityState.Modified;
 
             try
             {
@@ -75,12 +94,12 @@ namespace MyItemShop.Controllers
         // POST: api/Items
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Item>> PostItem(Item item)
+        public async Task<ActionResult<Item>> PostItem(ItemDTO itemDTO)
         {
-            _context.Items.Add(item);
+            _context.Items.Add(new Item(itemDTO));
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetItem", new { id = item.ItemID }, item);
+            return CreatedAtAction("GetItem", new { id = itemDTO.ItemID }, itemDTO);
         }
 
         // DELETE: api/Items/5

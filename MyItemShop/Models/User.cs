@@ -10,33 +10,47 @@ namespace MyItemShop.Models
     {
 
         [Key]
-        public int UserID { get; set; }
-
-        [Column(TypeName="varchar(50)")]
-        public string FirstName { get; set; }
+        public virtual int UserID { get; set; }
 
         [Column(TypeName = "varchar(50)")]
-        public string LastName { get; set; }
+        public virtual string FirstName { get; set; }
+
+        [Column(TypeName = "varchar(50)")]
+        public virtual string LastName { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime DateOfBirth { get; set; }
+        public virtual DateTime DateOfBirth { get; set; }
 
         [Column(TypeName = "varchar(100)")]
-        public string Email { get; set; }
+        public virtual string Email { get; set; }
 
         [Column(TypeName = "varchar(100)")]
-        public string Password { get; set; }
-
-        [Column(TypeName = "varchar(max)")]
-        public string Orders { get; set; }
-
-   
-        public int userType { get; set; }
-        
-        [Column(TypeName = "varchar(max)")]
-        public string Cart { get; set; }
+        public virtual string Password { get; set; }
 
 
+  
+        public virtual int UserType { get; set; }
+
+       public virtual List<Order> Orders { get; set; }
+
+        public virtual List<Cart> CartItems { get; set; }
+
+        public User(UserDTO userDTO)
+        {
+            UserID = userDTO.UserID;
+            FirstName = userDTO.FirstName;
+            LastName = userDTO.LastName;
+            DateOfBirth = userDTO.DateOfBirth;
+            Email = userDTO.Email;
+            Password = userDTO.Password;
+            UserType = userDTO.UserType;
+            
+        }  
+
+        public User()
+        {
+
+        }
     }
 
    

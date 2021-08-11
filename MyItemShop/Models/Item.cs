@@ -10,19 +10,37 @@ namespace MyItemShop.Models
     public class Item
     {
         [Key]
-        public int ItemID { get; set; }
+        public virtual int ItemID { get; set; }
 
         [Column(TypeName = "varchar(50)")]
-        public string ItemName { get; set; }
+        public virtual string ItemName { get; set; }
 
-        public int CategoryID { get; set; }
+        [ForeignKey("Category")]
+        public virtual int CategoryID { get; set; }
+        public Category Category { get; set; }
 
-        
-        public int ItemPrice { get; set; }
+       
+        public virtual int ItemPrice { get; set; }
 
         [Column(TypeName = "varchar(150)")]
-        public string ItemImageURL{ get; set; }
+        public virtual string ItemImageURL{ get; set; }
 
-        
+
+
+        public Item()
+        {
+
+        }
+
+        public Item(ItemDTO itemDTO)
+        {
+            ItemID = itemDTO.ItemID;
+            ItemName = itemDTO.ItemName;
+            CategoryID = itemDTO.CategoryID;
+            ItemPrice = itemDTO.ItemPrice;
+            ItemImageURL = itemDTO.ItemImageURL;
+        }
+
+
     }
 }

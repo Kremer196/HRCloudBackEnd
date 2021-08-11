@@ -2,7 +2,7 @@
 
 namespace MyItemShop.Migrations
 {
-    public partial class InitialCreateV2 : Migration
+    public partial class key : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
