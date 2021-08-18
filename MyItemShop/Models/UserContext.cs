@@ -7,7 +7,7 @@ using MyItemShop.Models;
 
 namespace MyItemShop.Models
 {
-    public class UserContext:DbContext
+    public class UserContext:DbContext 
     {
         public UserContext(DbContextOptions<UserContext> options):base(options)
         {
@@ -55,6 +55,9 @@ namespace MyItemShop.Models
 
         public DbSet<MyItemShop.Models.OrderedItem> OrderedItem { get; set; }
 
+
+        
+       
         
      
     }

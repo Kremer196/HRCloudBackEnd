@@ -7,10 +7,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyItemShop.Models
 {
-    public class Item
+
+    [Table("Items")]
+    public class Item : BaseClass
     {
-        [Key]
-        public virtual int ItemID { get; set; }
+       
+      //  public virtual int ItemID { get; set; }
 
         [Column(TypeName = "varchar(50)")]
         public virtual string ItemName { get; set; }
@@ -34,7 +36,7 @@ namespace MyItemShop.Models
 
         public Item(ItemDTO itemDTO)
         {
-            ItemID = itemDTO.ItemID;
+            ID = itemDTO.ID;
             ItemName = itemDTO.ItemName;
             CategoryID = itemDTO.CategoryID;
             ItemPrice = itemDTO.ItemPrice;

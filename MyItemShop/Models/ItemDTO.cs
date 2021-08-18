@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace MyItemShop.Models
 {
-    public class ItemDTO
+    public class ItemDTO : BaseDTO
     {
-        public int ItemID { get; set; }
 
-      
+        
+      //  public virtual int ItemID { get; set; }
+
         public string ItemName { get; set; }
 
         public int CategoryID { get; set; }
@@ -21,13 +22,13 @@ namespace MyItemShop.Models
         public string ItemImageURL { get; set; }
 
 
-        public ItemDTO(int itemID, string itemName, int categoryID, int itemPrice, string itemImageURL)
+        public ItemDTO(Item item)
         {
-            ItemID = itemID;
-            ItemName = itemName;
-            CategoryID = categoryID;
-            ItemPrice = itemPrice;
-            ItemImageURL = itemImageURL;
+            ID = item.ID;
+            ItemName = item.ItemName;
+            CategoryID = item.CategoryID;
+            ItemPrice = item.ItemPrice;
+            ItemImageURL = item.ItemImageURL;
 
         }
       

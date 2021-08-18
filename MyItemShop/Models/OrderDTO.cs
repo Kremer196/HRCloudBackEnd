@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyItemShop.Models
 {
-    public class OrderDTO
+    public class OrderDTO 
     {
         public virtual int UserID { get; set; }
         

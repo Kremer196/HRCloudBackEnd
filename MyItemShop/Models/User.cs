@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace MyItemShop.Models
 {
-    public class User
+    [Table("Users")]
+    public class User : BaseClass
     {
-
-        [Key]
-        public virtual int UserID { get; set; }
+        
+        
+       // public virtual int UserID { get; set; }
 
         [Column(TypeName = "varchar(50)")]
         public virtual string FirstName { get; set; }
+
 
         [Column(TypeName = "varchar(50)")]
         public virtual string LastName { get; set; }
@@ -37,7 +39,7 @@ namespace MyItemShop.Models
 
         public User(UserDTO userDTO)
         {
-            UserID = userDTO.UserID;
+            ID = userDTO.ID;
             FirstName = userDTO.FirstName;
             LastName = userDTO.LastName;
             DateOfBirth = userDTO.DateOfBirth;

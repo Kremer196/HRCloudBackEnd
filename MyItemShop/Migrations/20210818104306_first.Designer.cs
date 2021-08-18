@@ -10,8 +10,8 @@ using MyItemShop.Models;
 namespace MyItemShop.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210811125939_string")]
-    partial class @string
+    [Migration("20210818104306_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,8 @@ namespace MyItemShop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+           
 
             modelBuilder.Entity("MyItemShop.Models.Cart", b =>
                 {
@@ -47,47 +49,6 @@ namespace MyItemShop.Migrations
                     b.HasIndex("CartUserID");
 
                     b.ToTable("CartItem");
-                });
-
-            modelBuilder.Entity("MyItemShop.Models.Category", b =>
-                {
-                    b.Property<int>("CategoryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("varchar(50)");
-
-                    b.HasKey("CategoryID");
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("MyItemShop.Models.Item", b =>
-                {
-                    b.Property<int>("ItemID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ItemImageURL")
-                        .HasColumnType("varchar(150)");
-
-                    b.Property<string>("ItemName")
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("ItemPrice")
-                        .HasColumnType("int");
-
-                    b.HasKey("ItemID");
-
-                    b.HasIndex("CategoryID");
-
-                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("MyItemShop.Models.Order", b =>
@@ -121,12 +82,53 @@ namespace MyItemShop.Migrations
                     b.ToTable("OrderedItem");
                 });
 
+            modelBuilder.Entity("MyItemShop.Models.Category", b =>
+            {
+                b.Property<int>("ID")
+                       .ValueGeneratedOnAdd()
+                       .HasColumnType("int")
+                       .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                
+                b.HasBaseType("MyItemShop.Models.BaseClass");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("varchar(50)");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("MyItemShop.Models.Item", b =>
+                {
+                    b.Property<int>("ID")
+                       .ValueGeneratedOnAdd()
+                       .HasColumnType("int")
+                       .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasBaseType("MyItemShop.Models.BaseClass");
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ItemImageURL")
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("ItemPrice")
+                        .HasColumnType("int");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("Items");
+                });
+
             modelBuilder.Entity("MyItemShop.Models.User", b =>
                 {
-                    b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("ID")
+                       .ValueGeneratedOnAdd()
+                       .HasColumnType("int")
+                       .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasBaseType("MyItemShop.Models.BaseClass");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("date");
@@ -145,8 +147,6 @@ namespace MyItemShop.Migrations
 
                     b.Property<int>("UserType")
                         .HasColumnType("int");
-
-                    b.HasKey("UserID");
 
                     b.ToTable("Users");
                 });
@@ -169,17 +169,6 @@ namespace MyItemShop.Migrations
                         .HasForeignKey("CartUserID");
                 });
 
-            modelBuilder.Entity("MyItemShop.Models.Item", b =>
-                {
-                    b.HasOne("MyItemShop.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("MyItemShop.Models.Order", b =>
                 {
                     b.HasOne("MyItemShop.Models.User", "User")
@@ -198,6 +187,20 @@ namespace MyItemShop.Migrations
                         .HasForeignKey("OrderUserID");
                 });
 
+           
+
+            modelBuilder.Entity("MyItemShop.Models.Item", b =>
+                {
+                    b.HasOne("MyItemShop.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+          
             modelBuilder.Entity("MyItemShop.Models.Cart", b =>
                 {
                     b.Navigation("CartItems");

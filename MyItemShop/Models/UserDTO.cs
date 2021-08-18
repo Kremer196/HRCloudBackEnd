@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace MyItemShop.Models
 {
-    public class UserDTO
+    public class UserDTO : BaseDTO
     {
-        
-        public virtual int UserID { get; set; }
 
-        
+
+     //   public virtual int UserID { get; set; }
         public virtual string FirstName { get; set; }
 
         
@@ -29,7 +28,7 @@ namespace MyItemShop.Models
 
         public UserDTO(User user) 
         {
-            UserID = user.UserID;
+            ID = user.ID;
             FirstName = user.FirstName;
             LastName = user.LastName;
             DateOfBirth = user.DateOfBirth;

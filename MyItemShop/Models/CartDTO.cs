@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyItemShop.Models
 {
-    public class CartDTO
+    public class CartDTO 
     {
 
         public virtual int UserID { get; set; }

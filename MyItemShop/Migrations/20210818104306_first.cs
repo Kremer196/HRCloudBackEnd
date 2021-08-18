@@ -3,29 +3,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyItemShop.Migrations
 {
-    public partial class start : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            
+
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID = table.Column<int>(type: "int", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "varchar(50)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryID);
+                    table.PrimaryKey("PK_Categories", x => x.ID);
+                   
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID = table.Column<int>(type: "int", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "varchar(50)", nullable: true),
                     LastName = table.Column<string>(type: "varchar(50)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "date", nullable: false),
@@ -35,15 +36,15 @@ namespace MyItemShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserID);
+                    table.PrimaryKey("PK_Users", x => x.ID);
+                    
                 });
 
             migrationBuilder.CreateTable(
                 name: "Items",
                 columns: table => new
                 {
-                    ItemID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID = table.Column<int>(type: "int", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
                     ItemName = table.Column<string>(type: "varchar(50)", nullable: true),
                     CategoryID = table.Column<int>(type: "int", nullable: false),
                     ItemPrice = table.Column<int>(type: "int", nullable: false),
@@ -51,12 +52,13 @@ namespace MyItemShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.ItemID);
+                    table.PrimaryKey("PK_Items", x => x.ID);
+                   
                     table.ForeignKey(
                         name: "FK_Items_Categories_CategoryID",
                         column: x => x.CategoryID,
                         principalTable: "Categories",
-                        principalColumn: "CategoryID",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -73,7 +75,7 @@ namespace MyItemShop.Migrations
                         name: "FK_Cart_Users_UserID",
                         column: x => x.UserID,
                         principalTable: "Users",
-                        principalColumn: "UserID",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -90,7 +92,7 @@ namespace MyItemShop.Migrations
                         name: "FK_Orders_Users_UserID",
                         column: x => x.UserID,
                         principalTable: "Users",
-                        principalColumn: "UserID",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -118,7 +120,7 @@ namespace MyItemShop.Migrations
                 columns: table => new
                 {
                     ItemID = table.Column<int>(type: "int", nullable: false),
-                    DateOfPurchase = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfPurchase = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     OrderUserID = table.Column<int>(type: "int", nullable: true)
                 },
@@ -171,6 +173,8 @@ namespace MyItemShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+           
         }
     }
 }
