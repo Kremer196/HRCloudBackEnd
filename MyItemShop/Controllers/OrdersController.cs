@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,17 +15,17 @@ namespace MyItemShop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrdersController : ControllerBase
+    public class OrdersController : BaseController<Order, OrderDTO>
     {
-        private readonly UserContext _context;
+       
 
-        public OrdersController(UserContext context)
+        public OrdersController(UserContext context, IMapper mapper) : base(context, mapper)
         {
-            _context = context;
+            
         }
 
         // GET: api/Orders
-        [HttpGet]
+    /*    [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderDTO>>> GetOrders()
         {
             
@@ -57,7 +58,7 @@ namespace MyItemShop.Controllers
             }
 
             
-        }
+        }*/
 
         [HttpGet("{userID}/list")]
         public async Task<ActionResult<IEnumerable<OrderedItem>>> GetOrderItems(int userID)
@@ -77,7 +78,7 @@ namespace MyItemShop.Controllers
         // PUT: api/Orders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{userID}")]
-        public async Task<IActionResult> PutOrder(int userID,  OrderDTO order)
+        public  async override Task<ActionResult> PutOne(int userID,  OrderDTO order)
         {
            /* var oldOrder = (from d in _context.Orders
                             where d.UserID == userID
@@ -93,18 +94,11 @@ namespace MyItemShop.Controllers
             }
 
 
-           foreach(var o in order.OrderedItems)
+            foreach (var o in order.OrderedItems)
             {
                 oldOrder.OrderedItems.Add(o);
                 _context.SaveChanges();
             }
-
-
-
-
-
-
-
 
             try
             {
@@ -112,7 +106,7 @@ namespace MyItemShop.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrderExists(userID))
+                    if (!ModelExists(userID))
                     {
                         return NotFound();
                     }
@@ -128,7 +122,7 @@ namespace MyItemShop.Controllers
 
         // POST: api/Orders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+    /*    [HttpPost]
         public async Task<ActionResult<OrderDTO>> PostOrder(OrderDTO orderDTO)
         {
 
@@ -140,15 +134,15 @@ namespace MyItemShop.Controllers
             await _context.SaveChangesAsync();
 
             var oldOrder = (from d in _context.Orders
-                            where d.UserID == orderDTO.UserID
+                            where d.ID == orderDTO.ID
                             select d).Single();
 
 
-            return CreatedAtAction("GetOrder", new { id = orderDTO.UserID }, orderDTO);
-        }
+            return CreatedAtAction("GetOrder", new { id = orderDTO.ID }, orderDTO);
+        }*/
 
         // DELETE: api/Orders/5
-        [HttpDelete("{userID}")]
+     /*   [HttpDelete("{userID}")]
         public async Task<IActionResult> DeleteOrder(int userID)
         {
             
@@ -162,11 +156,11 @@ namespace MyItemShop.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        }*/
 
-        private bool OrderExists(int userID)
+     /*   private bool OrderExists(int userID)
         {
-            return _context.Orders.Any(e => e.UserID == userID);
-        }
+            return _context.Orders.Any(e => e.ID == userID);
+        }*/
     }
 }

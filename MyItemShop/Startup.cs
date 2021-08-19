@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,26 @@ namespace MyItemShop
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyItemShop", Version = "v1" });
             });
+
+
+            var mapperConfiguration = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+                mc.CreateMap<Item, ItemDTO>();
+                mc.CreateMap<User, UserDTO>();
+                mc.CreateMap<Category, CategoryDTO>();
+                mc.CreateMap<CategoryDTO, Category>();
+                mc.CreateMap<ItemDTO, Item>();
+                mc.CreateMap<UserDTO, User>();
+                mc.CreateMap<Order, OrderDTO>();
+                mc.CreateMap<OrderDTO, Order>();
+                mc.CreateMap<Cart, CartDTO>();
+                mc.CreateMap<CartDTO, Cart>();
+            });
+
+            IMapper mapper = mapperConfiguration.CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddCors(options =>
             {

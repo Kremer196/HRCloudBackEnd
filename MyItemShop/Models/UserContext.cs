@@ -30,8 +30,8 @@ namespace MyItemShop.Models
             modelBuilder.Entity<Order>()
             .HasOne(p => p.User)
             .WithMany(b => b.Orders)
-            .HasForeignKey(p => p.UserID);
-            modelBuilder.Entity<Order>().HasKey(o => o.UserID);
+            .HasForeignKey(p => p.ID);
+            modelBuilder.Entity<Order>().HasKey(o => o.ID);
             
 
             modelBuilder.Entity<OrderedItem>().HasKey(o => new { o.ItemID, o.DateOfPurchase });
@@ -40,8 +40,8 @@ namespace MyItemShop.Models
             modelBuilder.Entity<Cart>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.CartItems)
-                .HasForeignKey(p => p.UserID);
-            modelBuilder.Entity<Cart>().HasKey(o => o.UserID);
+                .HasForeignKey(p => p.ID);
+            modelBuilder.Entity<Cart>().HasKey(o => o.ID);
 
             modelBuilder.Entity<CartItem>().HasKey(o => new { o.ItemID });
 

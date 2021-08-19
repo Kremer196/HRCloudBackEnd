@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "xxTIjV36E/gGnUi97j0n0r/HXJm6xMKJe9NJf8HGAWme6WC3VRNGNUq0dbBoEKaJs4IKGl91eGTr4FEMyxHeVQ==",
+  "dgSpecHash": "bNQeP8lx5gwQHW7EhzI1Pq0VsTSTxSmkUDmuVZIz+3T/2l6c8PnSibkZkPlrivr+0ycJMFwpaJZ4mbCpbSMkkg==",
   "success": true,
   "projectFilePath": "C:\\FER\\HRCLOUD\\aspnet\\MyItemShop\\MyItemShop\\MyItemShop.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Marko Kremer\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\Marko Kremer\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\Marko Kremer\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Marko Kremer\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Marko Kremer\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
@@ -106,7 +108,7 @@
     "C:\\Users\\Marko Kremer\\.nuget\\packages\\system.private.datacontractserialization\\4.3.0\\system.private.datacontractserialization.4.3.0.nupkg.sha512",
     "C:\\Users\\Marko Kremer\\.nuget\\packages\\system.private.uri\\4.3.2\\system.private.uri.4.3.2.nupkg.sha512",
     "C:\\Users\\Marko Kremer\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
-    "C:\\Users\\Marko Kremer\\.nuget\\packages\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
+    "C:\\Users\\Marko Kremer\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Users\\Marko Kremer\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "C:\\Users\\Marko Kremer\\.nuget\\packages\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "C:\\Users\\Marko Kremer\\.nuget\\packages\\system.reflection.extensions\\4.3.0\\system.reflection.extensions.4.3.0.nupkg.sha512",

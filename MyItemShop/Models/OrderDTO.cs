@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace MyItemShop.Models
 {
-    public class OrderDTO 
+    public class OrderDTO : BaseDTO
     {
-        public virtual int UserID { get; set; }
+   
         
         public virtual List<OrderedItem> OrderedItems { get; set; }
 
 
         public OrderDTO(Order order)
         {
-            UserID = order.UserID;
+            ID = order.ID;
             OrderedItems = order.OrderedItems ;
         }
 

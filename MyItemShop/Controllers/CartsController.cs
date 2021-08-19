@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,17 +12,17 @@ namespace MyItemShop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartsController : ControllerBase
+    public class CartsController : BaseController<Cart, CartDTO>
     {
-        private readonly UserContext _context;
+       // private readonly UserContext _context;
 
-        public CartsController(UserContext context)
+        public CartsController(UserContext context, IMapper mapper) : base(context, mapper)
         {
-            _context = context;
+           // _context = context;
         }
 
         // GET: api/Carts
-        [HttpGet]
+     /*   [HttpGet]
         public async Task<ActionResult<IEnumerable<CartDTO>>> GetCart()
         {
             List<Cart> cart = await _context.Cart.ToListAsync();
@@ -50,7 +51,7 @@ namespace MyItemShop.Controllers
             CartDTO cartDTO = new CartDTO(cart);
 
             return cartDTO;
-        }
+        }*/
 
         [HttpGet("{id}/list")]
         public async Task<ActionResult<IEnumerable<CartItem>>> GetCartItems(int id)
@@ -68,7 +69,7 @@ namespace MyItemShop.Controllers
         // PUT: api/Carts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCart(int id, CartDTO cartDTO)
+        public override async Task<ActionResult> PutOne(int id, CartDTO cartDTO)
         {
 
            
@@ -101,7 +102,7 @@ namespace MyItemShop.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CartExists(id))
+                if (!ModelExists(id))
                 {
                     return NotFound();
                 }
@@ -146,7 +147,7 @@ namespace MyItemShop.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CartExists(userID))
+                if (!ModelExists(userID))
                 {
                     return NotFound();
                 }
@@ -199,7 +200,7 @@ namespace MyItemShop.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CartExists(userID))
+                if (!ModelExists(userID))
                 {
                     return NotFound();
                 }
@@ -214,7 +215,7 @@ namespace MyItemShop.Controllers
 
         // POST: api/Carts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+    /*    [HttpPost]
         public async Task<ActionResult<CartDTO>> PostCart(CartDTO cartDTO)
         {
             _context.Cart.Add(new Cart(cartDTO));
@@ -228,10 +229,10 @@ namespace MyItemShop.Controllers
           
 
             return CreatedAtAction("GetCart", new { id = cartDTO.UserID }, cartDTO);
-        }
+        }*/
 
         // DELETE: api/Carts/5
-        [HttpDelete("{id}")]
+    /*    [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCart(int id)
         {
             var cart = await _context.Cart.FindAsync(id);
@@ -249,6 +250,6 @@ namespace MyItemShop.Controllers
         private bool CartExists(int id)
         {
             return _context.Cart.Any(e => e.UserID == id);
-        }
+        }*/
     }
 }

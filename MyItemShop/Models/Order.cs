@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace MyItemShop.Models
 {
-    public class Order
+    public class Order : BaseClass
     {
-         public virtual int UserID { get; set; }
+       
          public virtual User User { get; set; }
 
         
@@ -23,7 +23,7 @@ namespace MyItemShop.Models
 
         public Order(OrderDTO orderDTO) 
         {
-            UserID = orderDTO.UserID;
+            ID = orderDTO.ID;
             OrderedItems = orderDTO.OrderedItems;
         }
     }

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace MyItemShop.Models
 {
-    public class Cart
+    public class Cart : BaseClass
     {
-        public virtual int UserID { get; set; }
+       
         public virtual User User { get; set; }
 
         public virtual List<CartItem> CartItems { get; set; }
@@ -19,7 +19,7 @@ namespace MyItemShop.Models
 
         public Cart(CartDTO cartDTO) 
         {
-            UserID = cartDTO.UserID;
+            ID = cartDTO.ID;
             CartItems = cartDTO.CartItems;
         }
     }

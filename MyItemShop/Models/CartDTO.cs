@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace MyItemShop.Models
 {
-    public class CartDTO 
+    public class CartDTO : BaseDTO
     {
 
-        public virtual int UserID { get; set; }
+   
         public virtual List<CartItem> CartItems { get; set; }
 
         public CartDTO()
@@ -18,7 +18,7 @@ namespace MyItemShop.Models
 
         public CartDTO(Cart cart)
         {
-            UserID = cart.UserID;
+            ID = cart.ID;
             CartItems = cart.CartItems;
         }
     }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace MyItemShop.Controllers
 {
@@ -18,11 +19,14 @@ namespace MyItemShop.Controllers
         protected readonly UserContext _context;
         protected DbSet<TEntity> dbSet { get; set; }
 
+        protected readonly IMapper _mapper;
 
-        public BaseController(UserContext context) 
+
+        public BaseController(UserContext context, IMapper mapper) 
         {
             _context = context;
             dbSet = _context.Set<TEntity>();
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -53,14 +57,14 @@ namespace MyItemShop.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutOne(int id, VEntity model)
+        public virtual async Task<ActionResult> PutOne(int id, VEntity model)
         {
             if(id != model.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(model).State = EntityState.Modified;
+            _context.Entry(_mapper.Map<TEntity>(model)).State = EntityState.Modified;
 
             try
             {
@@ -83,8 +87,8 @@ namespace MyItemShop.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<VEntity>> PostOne(TEntity model) {
-            dbSet.Add(model);
+        public virtual async Task<ActionResult<VEntity>> PostOne(VEntity model) {
+            dbSet.Add(_mapper.Map<TEntity>(model));
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetOne", new { id = model.ID }, model);
@@ -106,7 +110,7 @@ namespace MyItemShop.Controllers
         }
 
 
-        private bool ModelExists(int id)
+        protected bool ModelExists(int id)
         {
             
             return dbSet.Any(e => e.ID == id);
