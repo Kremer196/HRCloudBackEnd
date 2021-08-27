@@ -24,27 +24,17 @@ namespace MyItemShop.Migrations
                     b.Property<int>("ID")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
-
-                    b.ToTable("Cart");
-                });
-
-            modelBuilder.Entity("MyItemShop.Models.CartItem", b =>
-                {
                     b.Property<int>("ItemID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CartID")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("ItemID");
+                    b.HasKey("ID", "ItemID");
 
-                    b.HasIndex("CartID");
+                    b.HasIndex("ItemID");
 
-                    b.ToTable("CartItem");
+                    b.ToTable("Cart");
                 });
 
             modelBuilder.Entity("MyItemShop.Models.Category", b =>
@@ -157,14 +147,15 @@ namespace MyItemShop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MyItemShop.Models.CartItem", b =>
-                {
-                    b.HasOne("MyItemShop.Models.Cart", null)
+                    b.HasOne("MyItemShop.Models.Item", "Item")
                         .WithMany("CartItems")
-                        .HasForeignKey("CartID");
+                        .HasForeignKey("ItemID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyItemShop.Models.Item", b =>
@@ -196,7 +187,7 @@ namespace MyItemShop.Migrations
                         .HasForeignKey("OrderID");
                 });
 
-            modelBuilder.Entity("MyItemShop.Models.Cart", b =>
+            modelBuilder.Entity("MyItemShop.Models.Item", b =>
                 {
                     b.Navigation("CartItems");
                 });

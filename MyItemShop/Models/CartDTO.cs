@@ -9,8 +9,11 @@ namespace MyItemShop.Models
     {
 
    
-        public virtual List<CartItem> CartItems { get; set; }
+        public virtual int ItemID { get; set; }
 
+        public virtual int Quantity { get; set; }
+
+      
         public CartDTO()
         {
 
@@ -19,7 +22,8 @@ namespace MyItemShop.Models
         public CartDTO(Cart cart)
         {
             ID = cart.ID;
-            CartItems = cart.CartItems;
+            ItemID = cart.ItemID;
+            Quantity = cart.Quantity;
         }
     }
 }

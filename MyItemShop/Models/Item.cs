@@ -27,7 +27,7 @@ namespace MyItemShop.Models
         [Column(TypeName = "varchar(150)")]
         public virtual string ItemImageURL{ get; set; }
 
-
+        public virtual List<Cart> CartItems { get; set; }
 
         public Item()
         {

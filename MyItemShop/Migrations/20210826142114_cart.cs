@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyItemShop.Migrations
 {
-    public partial class order : Migration
+    public partial class cart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,23 +61,6 @@ namespace MyItemShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cart",
-                columns: table => new
-                {
-                    UserID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cart", x => x.UserID);
-                    table.ForeignKey(
-                        name: "FK_Cart_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -95,22 +78,27 @@ namespace MyItemShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartItem",
+                name: "Cart",
                 columns: table => new
                 {
-                    ItemID = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    CartUserID = table.Column<int>(type: "int", nullable: true)
+                    ID = table.Column<int>(type: "int", nullable: false),
+                    ItemID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartItem", x => x.ItemID);
+                    table.PrimaryKey("PK_Cart", x => new { x.ID, x.ItemID });
                     table.ForeignKey(
-                        name: "FK_CartItem_Cart_CartUserID",
-                        column: x => x.CartUserID,
-                        principalTable: "Cart",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_Cart_Items_ItemID",
+                        column: x => x.ItemID,
+                        principalTable: "Items",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cart_Users_ID",
+                        column: x => x.ID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,9 +122,9 @@ namespace MyItemShop.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartItem_CartUserID",
-                table: "CartItem",
-                column: "CartUserID");
+                name: "IX_Cart_ItemID",
+                table: "Cart",
+                column: "ItemID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_CategoryID",
@@ -152,22 +140,19 @@ namespace MyItemShop.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CartItem");
-
-            migrationBuilder.DropTable(
-                name: "Items");
+                name: "Cart");
 
             migrationBuilder.DropTable(
                 name: "OrderedItem");
 
             migrationBuilder.DropTable(
-                name: "Cart");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Items");
 
             migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Users");

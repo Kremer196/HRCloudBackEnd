@@ -10,8 +10,8 @@ using MyItemShop.Models;
 namespace MyItemShop.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210819111025_order")]
-    partial class order
+    [Migration("20210826142114_cart")]
+    partial class cart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,30 +23,17 @@ namespace MyItemShop.Migrations
 
             modelBuilder.Entity("MyItemShop.Models.Cart", b =>
                 {
-                    b.Property<int>("UserID")
+                    b.Property<int>("ID")
                         .HasColumnType("int");
 
-                    b.HasKey("UserID");
-
-                    b.ToTable("Cart");
-                });
-
-            modelBuilder.Entity("MyItemShop.Models.CartItem", b =>
-                {
                     b.Property<int>("ItemID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CartUserID")
-                        .HasColumnType("int");
+                    b.HasKey("ID", "ItemID");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.HasIndex("ItemID");
 
-                    b.HasKey("ItemID");
-
-                    b.HasIndex("CartUserID");
-
-                    b.ToTable("CartItem");
+                    b.ToTable("Cart");
                 });
 
             modelBuilder.Entity("MyItemShop.Models.Category", b =>
@@ -155,18 +142,19 @@ namespace MyItemShop.Migrations
                 {
                     b.HasOne("MyItemShop.Models.User", "User")
                         .WithMany("CartItems")
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MyItemShop.Models.CartItem", b =>
-                {
-                    b.HasOne("MyItemShop.Models.Cart", null)
+                    b.HasOne("MyItemShop.Models.Item", "Item")
                         .WithMany("CartItems")
-                        .HasForeignKey("CartUserID");
+                        .HasForeignKey("ItemID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyItemShop.Models.Item", b =>
@@ -198,7 +186,7 @@ namespace MyItemShop.Migrations
                         .HasForeignKey("OrderID");
                 });
 
-            modelBuilder.Entity("MyItemShop.Models.Cart", b =>
+            modelBuilder.Entity("MyItemShop.Models.Item", b =>
                 {
                     b.Navigation("CartItems");
                 });

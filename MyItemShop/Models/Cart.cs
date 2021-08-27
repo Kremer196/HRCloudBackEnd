@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,10 @@ namespace MyItemShop.Models
        
         public virtual User User { get; set; }
 
-        public virtual List<CartItem> CartItems { get; set; }
+        public virtual int ItemID { get; set; }
+        public virtual Item Item { get; set; }
+
+        public virtual int Quantity { get; set; }
 
         public Cart()
         {
@@ -20,7 +24,8 @@ namespace MyItemShop.Models
         public Cart(CartDTO cartDTO) 
         {
             ID = cartDTO.ID;
-            CartItems = cartDTO.CartItems;
+            ItemID = cartDTO.ItemID;
+            Quantity = cartDTO.Quantity;
         }
     }
 }

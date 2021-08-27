@@ -44,7 +44,7 @@ namespace MyItemShop.Controllers
 
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<VEntity>>> GetOne(int id)
+        public virtual async Task<ActionResult<IEnumerable<VEntity>>> GetOne(int id)
         {
             var one = await dbSet.FindAsync(id);
 

@@ -41,17 +41,21 @@ namespace MyItemShop.Models
                 .HasOne(p => p.User)
                 .WithMany(b => b.CartItems)
                 .HasForeignKey(p => p.ID);
-            modelBuilder.Entity<Cart>().HasKey(o => o.ID);
 
-            modelBuilder.Entity<CartItem>().HasKey(o => new { o.ItemID });
+            modelBuilder.Entity<Cart>()
+                .HasOne(p => p.Item)
+                .WithMany(b => b.CartItems)
+                .HasForeignKey(p => p.ItemID);
 
-            modelBuilder.Entity<CartItem>().Property(e => e.ItemID).ValueGeneratedNever();
+
+            modelBuilder.Entity<Cart>().HasKey(o => new { o.ID, o.ItemID});
+
+  
 
          //  modelBuilder.Entity<CartDTO>().HasKey(o => new { o.UserID }) ;
             
         }
 
-        public DbSet<MyItemShop.Models.CartItem> CartItem { get; set; }
 
         public DbSet<MyItemShop.Models.OrderedItem> OrderedItem { get; set; }
 
